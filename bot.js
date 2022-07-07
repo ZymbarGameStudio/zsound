@@ -84,4 +84,4 @@ bot.on('message', function (message) {
 
 
 
-bot.login(auth.TOKEN || process.env.TOKEN);
+bot.login(process.env.TOKEN);
